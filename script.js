@@ -10,8 +10,8 @@
   const laptop = document.querySelector('#laptop');
   const screenText = document.querySelector('#screenText');
   const globeWrap = document.querySelector('#globeWrap');
-  const globeCopy = document.querySelector('.globe-copy');
-  const explore = document.querySelector('.explore-link');
+  const globeNigeria = document.querySelector('.globe-nigeria');
+  const topbar = document.querySelector('.topbar');
   const canvas = document.querySelector('#globe');
   const ctx = canvas.getContext('2d');
   const hello = "Hello, I'm Enejor Joseph.";
@@ -78,8 +78,9 @@
     const writing = smooth(0, .18, p);
     const pageShift = smooth(.25, .4, p);
     const typing = smooth(.36, .56, p);
-    const globeIn = smooth(.58, .76, p);
-    const globeZoom = smooth(.77, .96, p);
+    const globeIn = smooth(.64, .8, p);
+    const nigeriaIn = smooth(.78, .9, p);
+    const globeZoom = smooth(.76, .95, p);
 
     paper.style.opacity = String(1 - pageShift);
     paper.style.transform = `scale(${1 + pageShift * .04})`;
@@ -89,18 +90,19 @@
     pen.style.top = `calc(50% + ${140 - writing * 75}px)`;
     pen.style.transform = `rotate(${-44 + writing * 17}deg)`;
 
-    digital.style.opacity = String(smooth(.24,.4,p) * (1 - smooth(.56,.64,p)));
+    digital.style.opacity = String(smooth(.24,.4,p) * (1 - smooth(.54,.62,p)));
     digital.style.transform = `scale(${1 + (1-pageShift)*.03})`;
-    laptop.style.transform = `translate(${mix(110,0,smooth(.28,.47,p))}vw,-50%) scale(${1 + typing*.05})`;
+    laptop.style.transform = `translate(calc(-50% + ${mix(110,0,smooth(.28,.47,p))}vw),-50%) scale(${1 + typing*.05})`;
     screenText.textContent = profession.slice(0, Math.floor(profession.length * typing));
-    document.querySelectorAll('.orbit-word').forEach((el, i) => { el.style.opacity = String(smooth(.4,.5,p) * (1-smooth(.56,.63,p))); el.style.transform = `translateY(${(1-typing)*18*(i ? -1:1)}px)`; });
+    document.querySelectorAll('.orbit-word').forEach((el, i) => { el.style.opacity = String(smooth(.4,.5,p) * (1-smooth(.53,.59,p))); el.style.transform = `translateY(${(1-typing)*18*(i ? -1:1)}px)`; });
 
     globeScene.style.opacity = String(globeIn);
     globeWrap.style.opacity = String(globeIn);
-    globeWrap.style.transform = `translate(-50%,-50%) scale(${mix(.24, 1.5, globeZoom)}) rotate(${p*24}deg)`;
-    globeCopy.style.opacity = String(smooth(.74,.88,p) * (1-smooth(.96,1,p)*.2));
-    globeCopy.style.transform = `translateY(${mix(20,0,smooth(.74,.84,p))}px)`;
-    explore.style.opacity = String(smooth(.81,.9,p));
+    globeWrap.style.transform = `translate(-50%,-50%) scale(${mix(.2, 1.08, globeZoom)}) rotate(${p*24}deg)`;
+    globeNigeria.style.opacity = String(nigeriaIn);
+    globeNigeria.style.transform = `translate(-50%,-50%) scale(${mix(.78,1,nigeriaIn)}) rotate(${-p*24}deg)`;
+    topbar.style.opacity = String(1-smooth(.62,.7,p));
+    topbar.style.pointerEvents = p > .67 ? 'none' : '';
     drawGlobe(p);
   }
   function requestUpdate(){ if (!raf) raf = requestAnimationFrame(update); }
